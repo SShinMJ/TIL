@@ -8,12 +8,12 @@
 
 - **정적(static) 메소드**
   - 인스턴스 메소드와 달리 클래스로부터 객체를 생성하지 않고 직접 호출한다.
-  - 메소드 내부에서 istance 멤버를 참조할 수 없다.
+  - 메소드 내부에서 instance 멤버를 참조할 수 없다.
   - new로 만들어진 클래스 객체로부터 호출될 수 없다.
 
   <br>
 
-  ```
+  ```csharp
   public class Enemy {
     //static 메소드 정의
     한정자 static 반환형식 메소드이름(매개변수) {...}
@@ -35,7 +35,7 @@
 
   <br>
 
-  ```
+  ```csharp
   public class Enemy {
     // instance 변수
     public int numeric;
