@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+// GameManager 클래스는 일반적으로 게임의 진행을 위한 상태 정보 및 게임 외적의 기능을 처리하는 기능들을 담는다.
 public class GameManagerLogic : MonoBehaviour
 {
     public int totalSocore;
@@ -22,7 +23,7 @@ public class GameManagerLogic : MonoBehaviour
         playerItemCnt.text = count.ToString();
     }
 
-    // 아래로 떨어질 시 게임 제시작.
+    // 아래로 떨어질 시 게임 재시작.
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Player")
