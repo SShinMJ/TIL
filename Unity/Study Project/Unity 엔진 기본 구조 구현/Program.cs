@@ -1,4 +1,4 @@
-// 목적지(G)를 향해 몬스터(M)를 피해 캐릭터(P)를 이동하는 게임
+﻿
 using L230725;
 using System;
 
@@ -56,6 +56,7 @@ namespace L20230725
                         wall.transform.y = y;
                         wall.AddComponent(new MeshFilter('*'));
                         wall.AddComponent(new MeshRenderer());
+                        wall.AddComponent(new Collider());
                         myEngine.Instanciate(wall);
                     }
                 }

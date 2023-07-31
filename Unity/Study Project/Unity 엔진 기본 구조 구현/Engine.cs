@@ -39,7 +39,11 @@ namespace L20230725
             gameObjects.Add(newGameObject);
         }
 
-        List<GameObject> gameObjects;
+        protected List<GameObject> gameObjects;
+        public List<GameObject> GetAllGameObjects()
+        {
+            return gameObjects;
+        }
 
         // 실행 함수
         public void Run()

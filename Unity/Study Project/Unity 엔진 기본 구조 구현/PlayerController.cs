@@ -3,7 +3,7 @@ using System;
 
 namespace L230725
 {
-    internal class PlayerController : Component
+    internal class PlayerController : Controller
     {
         public PlayerController() 
         { 
@@ -19,19 +19,31 @@ namespace L230725
         {
             if (Input.GetKeyDown(ConsoleKey.W))
             {
-                transform.Translate(0, -1);
+                if(PredictMove(transform.x, transform.y-1))
+                {
+                    transform.Translate(0, -1);
+                }
             }
             if (Input.GetKeyDown(ConsoleKey.S))
             {
-                transform.Translate(0, 1);
+                if (PredictMove(transform.x, transform.y+1))
+                {
+                    transform.Translate(0, 1);
+                }
             }
             if (Input.GetKeyDown(ConsoleKey.A))
             {
-                transform.Translate(-1, 0);
+                if (PredictMove(transform.x-1, transform.y))
+                {
+                    transform.Translate(-1, 0);
+                }
             }
             if (Input.GetKeyDown(ConsoleKey.D))
             {
-                transform.Translate(1, 0);
+                if (PredictMove(transform.x+1, transform.y))
+                {
+                    transform.Translate(1, 0);
+                }
             }
         }
     }
