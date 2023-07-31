@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace L20230725
 {
@@ -22,6 +18,7 @@ namespace L20230725
                 Engine.Quit();
                 return;
             }
+
 
             Random random = new Random();
             int direction = random.Next(0, 4);

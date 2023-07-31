@@ -1,9 +1,56 @@
-using SDL2;
+﻿using SDL2;
 using System;
 using static SDL2.SDL;
 
 namespace L20230725
 {
+    //class Program
+    //{
+    //    public static void Main(string[] args)
+    //    {
+    //        SDL.SDL_Init(SDL.SDL_INIT_EVERYTHING);
+
+    //        IntPtr myWindow = SDL.SDL_CreateWindow("Game", 100, 100, 640, 480, SDL.SDL_WindowFlags.SDL_WINDOW_SHOWN);
+    //        IntPtr myRenderer = SDL.SDL_CreateRenderer(myWindow, -1, SDL.SDL_RendererFlags.SDL_RENDERER_ACCELERATED
+    //            | SDL.SDL_RendererFlags.SDL_RENDERER_PRESENTVSYNC
+    //            | SDL.SDL_RendererFlags.SDL_RENDERER_TARGETTEXTURE);
+    //        SDL.SDL_Event myEvent;
+    //        bool isRunning = true;
+    //        while(isRunning)
+    //        {
+    //            SDL.SDL_PollEvent(out myEvent);
+    //            switch(myEvent.type)
+    //            {
+    //                case SDL.SDL_EventType.SDL_QUIT:
+    //                    isRunning = false;
+    //                    break;
+    //            }
+
+    //            //Clear Screen
+    //            SDL.SDL_SetRenderDrawColor(myRenderer, 0, 0, 0, 0);
+    //            SDL.SDL_RenderClear(myRenderer);
+
+    //            //Fill Rect
+    //            SDL.SDL_Rect myRect = new SDL.SDL_Rect();
+    //            myRect.x = 100;
+    //            myRect.y = 100;
+    //            myRect.w = 100;
+    //            myRect.h = 100;
+    //            SDL.SDL_SetRenderDrawColor(myRenderer, 255, 0, 0, 0);
+    //            SDL.SDL_RenderFillRect(myRenderer, ref myRect);
+
+    //            //Present
+    //            SDL.SDL_RenderPresent(myRenderer);
+    //        }
+
+    //        SDL.SDL_DestroyRenderer(myRenderer);
+    //        SDL.SDL_DestroyWindow(myWindow);
+
+    //        SDL.SDL_Quit();
+    //    }
+    //}
+
+
     class Program
     {
         static int[,] map = {
@@ -82,7 +129,7 @@ namespace L20230725
             player.transform.x = 1;
             player.transform.y = 1;
             player.AddComponent(new MeshFilter('P'));
-            player.AddComponent(new MeshRenderer(255, 0, 0, 0, "test.bmp"));
+            player.AddComponent(new MeshRenderer(255, 0, 0, 0, "test.bmp", true));
             player.AddComponent(new PlayerController());
             myEngine.Instanciate(player);
 

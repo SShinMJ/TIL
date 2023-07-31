@@ -5678,6 +5678,7 @@ namespace SDL2
 		[DllImport(nativeLibName, CallingConvention = CallingConvention.Cdecl)]
 		public static extern int SDL_GetSystemRAM();
 
-		#endregion
-	}
+
+        #endregion
+    }
 }

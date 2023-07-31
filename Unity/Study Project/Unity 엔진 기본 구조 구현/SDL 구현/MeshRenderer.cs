@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,6 +15,9 @@ namespace L20230725
         public byte G;
         public byte B;
         public byte A;
+         
+        //SDL.SDL_Color colorKey;
+        public bool isSprite;
 
         public string textureName;
 
@@ -20,6 +25,8 @@ namespace L20230725
 
         IntPtr mySurface;
         IntPtr myTexture;
+
+        protected int index = 0;
 
         protected MeshFilter meshFilter;
         public MeshRenderer()
@@ -34,16 +41,32 @@ namespace L20230725
             A = inA;
         }
 
-        public MeshRenderer(byte inR, byte inG, byte inB, byte inA, string inTextureName)
+        public MeshRenderer(byte inR, byte inG, byte inB, byte inA, string inTextureName, bool inIsSpirte = false) 
         {
             R = inR;
             G = inG;
             B = inB;
             A = inA;
             textureName = inTextureName;
+            isSprite = inIsSpirte;
 
-            mySurface = SDL.SDL_LoadBMP("Data/"+textureName);
-            myTexture = SDL.SDL_CreateTextureFromSurface(Engine.GetInstance().myRenderer, mySurface);
+            string projectFolder = System.IO.Directory.GetParent(System.Environment.CurrentDirectory).Parent.FullName;
+            unsafe
+            {
+                mySurface = SDL.SDL_LoadBMP(projectFolder + "/Data/" + textureName);
+                SDL.SDL_Surface* surface = ( SDL.SDL_Surface*)mySurface;
+                if (!isSprite)
+                {
+                    SDL.SDL_SetColorKey(mySurface, 1,
+                        SDL.SDL_MapRGB(surface->format, 255, 255, 255));
+                }
+                else
+                {
+                    SDL.SDL_SetColorKey(mySurface, 1,
+                        SDL.SDL_MapRGB(surface->format, 255, 0, 255));
+                }
+                myTexture = SDL.SDL_CreateTextureFromSurface(Engine.GetInstance().myRenderer, mySurface);
+            }
         }
         ~MeshRenderer() { }
 
@@ -71,15 +94,33 @@ namespace L20230725
             //destination.h = SpirteSize;
             //SDL.SDL_SetRenderDrawColor(Engine.GetInstance().myRenderer, R, G, B, A);
             //SDL.SDL_RenderFillRect(Engine.GetInstance().myRenderer, ref destination);
-            unsafe //c언어 ,c++
+            unsafe //c언어 ,c++ 
             {
                 SDL.SDL_Rect source = new SDL.SDL_Rect();
                 SDL.SDL_Surface* surface = (SDL.SDL_Surface*)mySurface;
+                if (!isSprite)
+                {
+                    source.x = 0;
+                    source.y = 0;
+                    source.w = surface->w;
+                    source.h = surface->h;
+                }
+                else
+                {
+                    int sizeX = surface->w / 5;
+                    int sizeY = surface->h / 5;
+                    source.x = index * sizeX;
+                    source.y = 0 * sizeY;
+                    source.w = sizeX;
+                    source.h = sizeY;
 
-                source.x = 0;
-                source.y = 0;
-                source.w = surface->w;
-                source.h = surface->h;
+                    index++;
+                    if (index > 5)
+                    {
+                        index = 0;
+                    }
+
+                }
 
                 SDL.SDL_Rect destination = new SDL.SDL_Rect();
                 destination.x = transform.x * SpirteSize;
@@ -92,6 +133,8 @@ namespace L20230725
                     ref source,
                     ref destination);
             }
+
+            //Animation
 
 
         }
