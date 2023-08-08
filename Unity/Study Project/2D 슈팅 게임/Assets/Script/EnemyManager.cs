@@ -32,7 +32,7 @@ public class EnemyManager : MonoBehaviour
         // 시간이 흐른다.
         currentTime += Time.deltaTime;
         // 1. 일정 시간 이상 지날 때 마다
-        if(currentTime >= creatTime)
+        if (currentTime >= creatTime)
         {
             // 2. 적을 EnemyManager 위치에 생성한다.
             GameObject EnemyObj = Instantiate(Enemy);

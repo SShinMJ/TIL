@@ -15,6 +15,10 @@ public class EnemyBullet : MonoBehaviour
         if (player != null)
         {
             playerDir = (player.transform.position - gameObject.transform.position).normalized;
+            // 머리가 향하는 방향 지정
+            transform.rotation = Quaternion.LookRotation(playerDir);
+            // Quaternion은 *가 더하기이다. 현재 백터에서 X에 90도를 더한다.
+            transform.rotation *= Quaternion.Euler(90, 0, 0);
         }
     }
 
@@ -24,12 +28,12 @@ public class EnemyBullet : MonoBehaviour
         transform.position += playerDir * speed * Time.deltaTime;
     }
 
-    private void OnCollisionEnter(Collision others)
-    {
-        if (others.gameObject.tag == "Player")
-        {
-            Destroy(others.gameObject);
-            Destroy(gameObject);
-        }
-    }
+    //private void OnCollisionEnter(Collision others)
+    //{
+    //    if (others.gameObject.tag == "Player")
+    //    {
+    //        Destroy(others.gameObject);
+    //        Destroy(gameObject);
+    //    }
+    //}
 }
