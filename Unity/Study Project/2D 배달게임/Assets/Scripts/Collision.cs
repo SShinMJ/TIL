@@ -1,15 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Collision : MonoBehaviour
 {
-    bool isPizza = false;
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log(collision.gameObject.name + "와 충돌함!");
-    }
+    public GameObject pizza;
+    public bool isPizza = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -23,17 +17,17 @@ public class Collision : MonoBehaviour
             {
                 Debug.Log("피자 배달 시작~");
                 isPizza = true;
+                pizza = collision.gameObject;
+                pizza.SetActive(false);
+                gameObject.transform.GetChild(1).gameObject.SetActive(true);
+
+                GameManager.instance.isPizza = true;
             }
         }
 
         if (collision.tag == "Customer")
         {
-            if (isPizza)
-            {
-                Debug.Log("배달 완료!~");
-                isPizza = false;
-            }
-            else
+            if (!isPizza)
             {
                 Debug.Log("피자를 가져와주세요!");
             }
