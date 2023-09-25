@@ -3,6 +3,15 @@ using PlayerMachine = FSM.PlayerMachine;
 
 public class PlayerController : MonoBehaviour
 {
+    // 수직, 수평 입력 프로퍼티
+    public float horizontal => Input.GetAxis("Horizontal");
+    public float vertical => Input.GetAxis("Vertical");
+    // MOVE 상태에만 움직이게 해야하므로 관련 프로퍼티.
+    public bool isMoveable { get; set; }
+    public Vector3 move { get; set; }
+    [SerializeField] private float _moveSpeed = 1.5f;
+    private Rigidbody _rigidbody;
+
     // 땅을 감지하기 위해 필요.
     public bool isGrounded
     {
@@ -20,17 +29,25 @@ public class PlayerController : MonoBehaviour
     {
         _machine = new PlayerMachine(gameObject);
         //_playerMachine = new FSM.Generic.PlayerMachine(gameObject);
+        
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
-        _machine.Update();
-        //_playerMachine.Update();
-
         // 점프키(Space)를 누르면 상태값이 바뀐다.
         if(Input.GetKeyDown(KeyCode.Space))
         {
             _machine.ChangeState(2);
+        }
+
+        _machine.Update();
+        //_playerMachine.Update();
+
+        // 움직일 수 있을 때(점프나, 떨어지는 상태가 아닐때)
+        if (isMoveable)
+        {
+            move = new Vector3(horizontal, 0, vertical);
         }
     }
 
@@ -41,6 +58,19 @@ public class PlayerController : MonoBehaviour
 
         _machine.FixedUpdate();
         //_playerMachine.Update();
+
+        // 움직이는 것도 rigidbody.position이 변경되므로 FixedUpdate에 작성되야 한다.
+        Move();
+    }
+
+    private void LateUpdate()
+    {
+        _machine.LateUpdate();
+    }
+
+    void Move()
+    {
+        _rigidbody.position += move * _moveSpeed * Time.fixedDeltaTime;
     }
 
     // 땅에 닿았는지 확인하는 함수.

@@ -10,8 +10,11 @@ namespace FSM
         {
             return new Dictionary<int, IState>()
             {
-                { 1, new Move(1, machine) },
-                { 2, new Jump(2, machine) },
+                //{ 1, new Move(1, machine) },
+                //{ 2, new Jump(2, machine) },
+                { StateBase.MOVE, new Move(StateBase.MOVE, machine) },
+                { StateBase.JUMP, new Jump(StateBase.JUMP, machine, 5.0f) },
+                { StateBase.FALL, new Fall(StateBase.FALL, machine) },
             };
         }
     }

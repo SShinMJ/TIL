@@ -7,6 +7,11 @@ namespace FSM
     // 다양한 상태 변화에 대한 추상화 클래스.
     public abstract class StateBase : IState
     {
+        public const int MOVE = 1;
+        public const int JUMP = 2;
+        public const int FALL = 3;
+
+
         // 인터페이스에 따라 get은 반드시 구현되고,
         // 해당 클래스에서만 수정 가능하게(private)하는 set을 추가한다.
         public int id { get; private set; }
@@ -21,6 +26,9 @@ namespace FSM
         protected Rigidbody rigidbody;
         protected Animator animator;
 
+        // FixedUpdate와의 충돌을 방지하기 위해 확인.
+        private bool _hasFixedUpdatedAtVeryFirst;
+
         // 생성자. id 값과
         public StateBase(int id, StateMachine machine)
         {
@@ -29,11 +37,12 @@ namespace FSM
             this.controller = machine.owner.GetComponent<PlayerController>();
             this.transform = machine.owner.GetComponent<Transform>();
             this.rigidbody = machine.owner.GetComponent<Rigidbody>();
-            this.animator = machine.owner.GetComponent<Animator>();
+            this.animator = machine.owner.GetComponentInChildren<Animator>();
         }
 
         public virtual void OnEnter()
         {
+            _hasFixedUpdatedAtVeryFirst = false;
         }
 
         public virtual void OnExit()
@@ -42,11 +51,15 @@ namespace FSM
 
         public virtual void OnFixedUpdate()
         {
+            if (_hasFixedUpdatedAtVeryFirst == false)
+                _hasFixedUpdatedAtVeryFirst = true;
         }
 
         public virtual int OnUpdate()
         {
-            return id;
+            // FixedUpdate가 먼저 실행되어 Ture상태라면 id 반환.
+            // 아니라면 에러 처리를 위해 -1 반환
+            return _hasFixedUpdatedAtVeryFirst ? id : -1;
         }
     }
 }
