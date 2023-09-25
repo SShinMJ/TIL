@@ -1,0 +1,50 @@
+using UnityEngine;
+
+namespace FSM.AnimatorController
+{
+    // abstract 이므로, 각 캐릭터(Player 등)이 상속받아 사용하면 된다.
+    // == Animator의 Animation Blending을 고려한 설계이다.
+    public abstract class CharacterController : MonoBehaviour
+    {
+        // 각 캐릭터에 따라 다른 입력을 받아오므로,
+        public virtual float horizontal { get; set; }
+        public virtual float vertical { get; set; }
+        // MOVE 상태에만 움직이게 해야하므로 관련 프로퍼티.
+        public bool isMoveable { get; set; }
+        public Vector3 move { get; set; }
+        [SerializeField] private float _moveSpeed = 1.5f;
+        private Rigidbody _rigidbody;
+
+        // 땅을 감지하기 위해 필요.
+        public bool isGrounded
+        {
+            get
+            {
+                Collider[] cols = Physics.OverlapSphere(transform.position + _groundDetectCenter,
+                                        _groundDetectRadius,
+                                        _groundDetectMak);
+                return cols.Length > 0;
+            }
+        }
+        [SerializeField] private Vector3 _groundDetectCenter;
+        [SerializeField] private float _groundDetectRadius;
+        [SerializeField] private LayerMask _groundDetectMak;
+
+        protected Animator animator;
+
+        private void Awake()
+        {
+            _rigidbody = GetComponentInChildren<Rigidbody>();
+            animator = GetComponentInChildren<Animator>();
+
+            // 내가 원하는 StateMachineBehaviour 데이터들을 읽어올 수 있다.(배열 리턴)
+            StateBase[] states = animator.GetBehaviours<StateBase>();
+            for(int i = 0; i < states.Length; i++)
+            {
+                // 초기화
+                states[i].Initialize(this);
+            }
+        }
+
+    }
+}
