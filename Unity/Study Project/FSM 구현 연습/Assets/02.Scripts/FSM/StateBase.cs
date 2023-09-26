@@ -26,7 +26,7 @@ namespace FSM
         protected Rigidbody rigidbody;
         protected Animator animator;
 
-        // FixedUpdate와의 충돌을 방지하기 위해 확인.
+        // FixedUpdate가 update보다 먼저 실행됨을 보장하기 위한 것.
         private bool _hasFixedUpdatedAtVeryFirst;
 
         // 생성자. id 값과
@@ -42,6 +42,7 @@ namespace FSM
 
         public virtual void OnEnter()
         {
+            // 처음엔 false이고, 
             _hasFixedUpdatedAtVeryFirst = false;
         }
 
@@ -51,6 +52,7 @@ namespace FSM
 
         public virtual void OnFixedUpdate()
         {
+            // FixedUpdate가 실행된다면 true
             if (_hasFixedUpdatedAtVeryFirst == false)
                 _hasFixedUpdatedAtVeryFirst = true;
         }

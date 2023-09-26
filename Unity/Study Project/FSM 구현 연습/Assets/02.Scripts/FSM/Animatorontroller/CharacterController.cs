@@ -38,6 +38,7 @@ namespace FSM.AnimatorController
             animator = GetComponentInChildren<Animator>();
 
             // 내가 원하는 StateMachineBehaviour 데이터들을 읽어올 수 있다.(배열 리턴)
+            // StateBase 스크립트가 포함된 애니메이션들이 불러와진다.
             StateBase[] states = animator.GetBehaviours<StateBase>();
             for(int i = 0; i < states.Length; i++)
             {
