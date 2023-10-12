@@ -18,21 +18,19 @@ public class CoordianteLabeler : MonoBehaviour
     {
         label = GetComponent<TextMeshPro>();
         wayPoint = GetComponentInParent<WayPoint>();
+
+        // 현재 좌표를 보여준다.
+        DisplayCoordinates();
+        // 현재 좌표를 이름으로 바꾼다.
+        UpdateObjectName();
+        // 현재 좌표에 타워를 놓을 수 있는 지 여부에 따라 색을 바꾼다.
+        SetLabelColor();
+        // 처음엔 보여지지 않는다.
+        label.enabled = false;
     }
 
     void Update()
     {
-        // 플레이 모드가 아닐 때,
-        if (!Application.isPlaying)
-        {
-            // 현재 좌표를 보여준다.
-            DisplayCoordinates();
-
-            UpdateObjectName();
-        }
-
-        SetLabelColor();
-
         ToggleLabels();
     }
 
@@ -64,6 +62,7 @@ public class CoordianteLabeler : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.C))
         {
+            SetLabelColor();
             label.enabled = !label.IsActive();
         }
     }

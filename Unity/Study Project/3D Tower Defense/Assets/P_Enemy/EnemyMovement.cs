@@ -10,13 +10,34 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] List<WayPoint> path = new List<WayPoint>();
     [SerializeField] [Range(0, 5)]float speed = 2f;
 
-    void Start()
+    // OnEnable : setActive가 true 상태일 때마다 실행된다.
+    void OnEnable()
     {
         //FollowPath();
         // "" 내에 적힌 이름의 함수가 1초 주기로 반복된다.
         //InvokeRepeating("FollowPath", 0, 1);
         // 하지만 순서대로 반복되지 않으므로 코루틴을 사용한다.
+        FindPath();
         StartCoroutine(FollowPath());
+        ReturnToStart();
+    }
+
+    void ReturnToStart()
+    {
+        transform.position = path[0].transform.position;
+    }
+
+    void FindPath()
+    {
+        // 한 번만 이동하게 초기화 해준다.
+        path.Clear();
+
+        GameObject pathParent = GameObject.FindGameObjectWithTag("Path");
+
+        foreach(Transform child in pathParent.transform)
+        {
+            path.Add(child.GetComponent<WayPoint>());
+        }
     }
 
     IEnumerator FollowPath()
@@ -43,5 +64,7 @@ public class EnemyMovement : MonoBehaviour
                 yield return new WaitForEndOfFrame();
             }
         }
+
+        gameObject.SetActive(false);
     }
 }
