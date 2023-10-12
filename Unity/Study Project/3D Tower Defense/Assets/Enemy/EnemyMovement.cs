@@ -8,6 +8,7 @@ using UnityEngine.UIElements;
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] List<WayPoint> path = new List<WayPoint>();
+    [SerializeField] [Range(0, 5)]float speed = 2f;
 
     void Start()
     {
@@ -22,8 +23,25 @@ public class EnemyMovement : MonoBehaviour
     {
         foreach(var wayPoint in path)
         {
-            transform.position = wayPoint.transform.position;
-            yield return new WaitForSeconds(1);
+            // 순간이동하는 것 처럼 이동하지 않고,
+            //transform.position = wayPoint.transform.position;
+            // 부드럽게 다음 칸으로 넘어가게 한다.
+            Vector3 startPos = transform.position;
+            Vector3 endPos = wayPoint.transform.position;
+            float travelPercent = 0f;
+
+            // 가고자 하는 위치를 바라본다 == 움직이는 방향으로 회전한다.
+            transform.LookAt(wayPoint.transform);
+
+            while(travelPercent < 1f)
+            {
+                travelPercent += Time.deltaTime * speed;
+                // Lerp : 선형보간. 두 점 사이의 거리의 travelPercent%만큼의 값을 반환.
+                transform.position = Vector3.Lerp(startPos, endPos, travelPercent); ;
+                
+                // 한 프레임이 지나갈 때마다
+                yield return new WaitForEndOfFrame();
+            }
         }
     }
 }
