@@ -15,7 +15,6 @@ public class EnemyHealth : MonoBehaviour
     // 타워에서 발사되는 볼트는 파티클이므로, 파티클 충돌 함수를 사용한다.
     private void OnParticleCollision(GameObject other)
     {
-        Debug.Log(other.gameObject.layer);
         if (other.gameObject.layer == 6)
         {
             Damaged();

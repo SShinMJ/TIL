@@ -6,12 +6,18 @@ using UnityEngine;
 [ExecuteAlways]
 public class CoordianteLabeler : MonoBehaviour
 {
+    // 타워를 놓을 수 있는 지 표시하는 색
+    [SerializeField] Color defaultColor = Color.white;
+    [SerializeField] Color blockColor = Color.red;
+
     TextMeshPro label;
     Vector2Int coordinates = new Vector2Int();
+    WayPoint wayPoint;
 
     void Start()
     {
         label = GetComponent<TextMeshPro>();
+        wayPoint = GetComponentInParent<WayPoint>();
     }
 
     void Update()
@@ -24,6 +30,10 @@ public class CoordianteLabeler : MonoBehaviour
 
             UpdateObjectName();
         }
+
+        SetLabelColor();
+
+        ToggleLabels();
     }
 
     private void DisplayCoordinates()
@@ -36,5 +46,25 @@ public class CoordianteLabeler : MonoBehaviour
     void UpdateObjectName()
     {
         transform.parent.name = coordinates.ToString();
+    }
+
+    void SetLabelColor()
+    {
+        if(wayPoint.IsPlaceable)
+        {
+            label.color = defaultColor;
+        }
+        else
+        {
+            label.color = blockColor;
+        }
+    }
+
+    void ToggleLabels()
+    {
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            label.enabled = !label.IsActive();
+        }
     }
 }
