@@ -22,8 +22,8 @@ public class EnemyMovement : MonoBehaviour
         //InvokeRepeating("FollowPath", 0, 1);
         // 하지만 순서대로 반복되지 않으므로 코루틴을 사용한다.
         FindPath();
-        StartCoroutine(FollowPath());
         ReturnToStart();
+        StartCoroutine(FollowPath());
     }
 
     private void Start()
