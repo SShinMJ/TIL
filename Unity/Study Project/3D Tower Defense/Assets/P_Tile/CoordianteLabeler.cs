@@ -7,7 +7,9 @@ using UnityEngine;
 public class CoordianteLabeler : MonoBehaviour
 {
     // 타워를 놓을 수 있는 지 표시하는 색
+    [Tooltip("타워를 놓을 수 있을 때 표시 색")]
     [SerializeField] Color defaultColor = Color.white;
+    [Tooltip("타워를 놓을 수 없을 때 표시 색")]
     [SerializeField] Color blockColor = Color.red;
 
     TextMeshPro label;

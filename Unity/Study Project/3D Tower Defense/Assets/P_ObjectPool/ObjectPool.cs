@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
+    [Tooltip("利 橇府普")]
     [SerializeField] GameObject enemyPrefab;
+    [Tooltip("积己秦 笛 橇府普 俺荐")]
     [SerializeField] int poolSize = 10;
+    [Tooltip("利 积己 林扁")]
     [SerializeField] float spawnTime = 1f;
     GameObject[] pool;
 

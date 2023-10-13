@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,9 +6,12 @@ using UnityEngine.SceneManagement;
 // 잔액 보관, 입금, 인출
 public class Bank : MonoBehaviour
 {
+    [Tooltip("현재 금액 표시 Text UI")]
     [SerializeField] TextMeshProUGUI balanceText;
-    [SerializeField] int startBalance = 150; // 첫 시작 금액
-    [SerializeField] int currentBalance; // 현재 금액
+    [Tooltip("첫 시작 금액")]
+    [SerializeField] int startBalance = 150;
+    [Tooltip("현재 금액")]
+    [SerializeField] int currentBalance;
 
     // 외부에서 읽기만 가능하게 제한한다.
     public int CurrentBalance { get { return currentBalance; } }

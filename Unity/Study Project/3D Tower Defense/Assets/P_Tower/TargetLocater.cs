@@ -4,8 +4,9 @@ public class TargetLocater : MonoBehaviour
 {
     Transform weapon;
     Transform target;
-    // 공격 대상 인식 범위
+    [Tooltip("공격 대상 인식 범위")]
     [SerializeField] float range = 15f;
+    [Tooltip("타워가 발사할 파티클")]
     [SerializeField] ParticleSystem weaponParticle;
 
     void Start()

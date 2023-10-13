@@ -1,12 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Enemy))]
 public class EnemyHealth : MonoBehaviour
 {
     Enemy enemy;
 
+    [Tooltip("적의 HP")] 
     [SerializeField] int maxHP = 4;
+    [Tooltip("적의 체력 추가 정도")]
+    [SerializeField] int difficultyInscrese = 1;
     int currentHp = 0;
 
     private void Start()
@@ -32,6 +34,7 @@ public class EnemyHealth : MonoBehaviour
         if (currentHp <= 0)
         {
             gameObject.SetActive(false);
+            maxHP += difficultyInscrese;
             enemy.RewardMoney();
         }
     }

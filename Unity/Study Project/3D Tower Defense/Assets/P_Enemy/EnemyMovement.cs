@@ -9,7 +9,9 @@ public class EnemyMovement : MonoBehaviour
 {
     Enemy enemy;
 
+    [Tooltip("적이 이동할 타일 리스트")]
     [SerializeField] List<WayPoint> path = new List<WayPoint>();
+    [Tooltip("적 이동 속도")]
     [SerializeField] [Range(0, 5)]float speed = 2f;
 
     // OnEnable : setActive가 true 상태일 때마다 실행된다.
