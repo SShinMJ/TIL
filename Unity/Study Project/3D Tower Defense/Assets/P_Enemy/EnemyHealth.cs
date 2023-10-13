@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
+    Enemy enemy;
+
     [SerializeField] int maxHP = 4;
     int currentHp = 0;
 
     private void Start()
     {
+        enemy = GetComponent<Enemy>();
+
         currentHp = maxHP;
     }
 
@@ -28,6 +32,7 @@ public class EnemyHealth : MonoBehaviour
         if (currentHp <= 0)
         {
             gameObject.SetActive(false);
+            enemy.RewardMoney();
         }
     }
 }

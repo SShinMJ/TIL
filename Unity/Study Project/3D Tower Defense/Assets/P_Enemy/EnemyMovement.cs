@@ -7,6 +7,8 @@ using UnityEngine.UIElements;
 // WayPoint로 에너미를 이동
 public class EnemyMovement : MonoBehaviour
 {
+    Enemy enemy;
+
     [SerializeField] List<WayPoint> path = new List<WayPoint>();
     [SerializeField] [Range(0, 5)]float speed = 2f;
 
@@ -20,6 +22,11 @@ public class EnemyMovement : MonoBehaviour
         FindPath();
         StartCoroutine(FollowPath());
         ReturnToStart();
+    }
+
+    private void Start()
+    {
+        enemy = GetComponent<Enemy>();
     }
 
     void ReturnToStart()
@@ -65,6 +72,8 @@ public class EnemyMovement : MonoBehaviour
             }
         }
 
+        // 죽지 않고 끝에 도달했다면
+        enemy.PanaltyMoney();
         gameObject.SetActive(false);
     }
 }

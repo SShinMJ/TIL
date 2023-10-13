@@ -1,0 +1,56 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+// 타워를 사기 위한 금전 시스템.
+// 잔액 보관, 입금, 인출
+public class Bank : MonoBehaviour
+{
+    [SerializeField] TextMeshProUGUI balanceText;
+    [SerializeField] int startBalance = 150; // 첫 시작 금액
+    [SerializeField] int currentBalance; // 현재 금액
+
+    // 외부에서 읽기만 가능하게 제한한다.
+    public int CurrentBalance { get { return currentBalance; } }
+
+    private void Awake()
+    {
+        currentBalance = startBalance;
+        UpdateBalanceText();
+    }
+
+    private void UpdateBalanceText()
+    {
+        balanceText.text = "Gold : " + currentBalance.ToString();
+    }
+
+    // 입금
+    public void Deposit(int amount)
+    {
+        // Mathf.Abs() : 절대값 변환 함수. 음수 값이 들어오는 것 방지.
+        currentBalance += Mathf.Abs(amount);
+        UpdateBalanceText();
+    }
+
+    // 인출
+    public void WithDraw(int amount)
+    {
+        currentBalance -= amount;
+        UpdateBalanceText();
+
+        if (currentBalance < 0)
+        {
+            Debug.Log("Game Over");
+            ReloadScene();
+        }
+    }
+
+    private void ReloadScene()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.buildIndex);
+    }
+}
