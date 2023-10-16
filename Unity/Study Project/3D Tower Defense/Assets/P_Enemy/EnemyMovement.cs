@@ -75,6 +75,11 @@ public class EnemyMovement : MonoBehaviour
         }
 
         // 죽지 않고 끝에 도달했다면
+        FinishPath();
+    }
+
+    private void FinishPath()
+    {
         enemy.PanaltyMoney();
         gameObject.SetActive(false);
     }

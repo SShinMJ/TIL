@@ -9,9 +9,9 @@ public class Bank : MonoBehaviour
     [Tooltip("현재 금액 표시 Text UI")]
     [SerializeField] TextMeshProUGUI balanceText;
     [Tooltip("첫 시작 금액")]
-    [SerializeField] int startBalance = 150;
+    [SerializeField] [Range(0, 500)] int startBalance = 150;
     [Tooltip("현재 금액")]
-    [SerializeField] int currentBalance;
+    int currentBalance;
 
     // 외부에서 읽기만 가능하게 제한한다.
     public int CurrentBalance { get { return currentBalance; } }

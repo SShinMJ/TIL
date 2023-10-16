@@ -1,14 +1,14 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Enemy))]
+[RequireComponent(typeof(EnemyMovement))]
 public class EnemyHealth : MonoBehaviour
 {
     Enemy enemy;
 
-    [Tooltip("적의 HP")] 
-    [SerializeField] int maxHP = 4;
-    [Tooltip("적의 체력 추가 정도")]
-    [SerializeField] int difficultyInscrese = 1;
+    [Tooltip("적의 HP(1~50)")] 
+    [SerializeField] [Range(1, 50)] int maxHP = 4;
+    [Tooltip("적의 체력 추가 정도(1~50)")]
+    [SerializeField] [Range(1, 50)] int difficultyInscrese = 1;
     int currentHp = 0;
 
     private void Start()

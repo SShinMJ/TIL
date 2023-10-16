@@ -7,10 +7,10 @@ public class ObjectPool : MonoBehaviour
 {
     [Tooltip("적 프리팹")]
     [SerializeField] GameObject enemyPrefab;
-    [Tooltip("생성해 둘 프리팹 개수")]
-    [SerializeField] int poolSize = 10;
-    [Tooltip("적 생성 주기")]
-    [SerializeField] float spawnTime = 1f;
+    [Tooltip("생성해 둘 프리팹 개수(0~50개)")]
+    [SerializeField] [Range(0, 50)] int poolSize = 10;
+    [Tooltip("적 생성 주기(0.1~20초)")]
+    [SerializeField][Range(0.1f, 20)] float spawnTime = 1f;
     GameObject[] pool;
 
     void Awake()
