@@ -1,13 +1,9 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 // 타워를 사기 위한 금전 시스템.
 // 잔액 보관, 입금, 인출
 public class Bank : MonoBehaviour
 {
-    [Tooltip("현재 금액 표시 Text UI")]
-    [SerializeField] TextMeshProUGUI balanceText;
     [Tooltip("첫 시작 금액")]
     [SerializeField] [Range(0, 500)] int startBalance = 150;
     [Tooltip("현재 금액")]
@@ -19,12 +15,11 @@ public class Bank : MonoBehaviour
     private void Awake()
     {
         currentBalance = startBalance;
-        UpdateBalanceText();
     }
 
-    private void UpdateBalanceText()
+    private void Start()
     {
-        balanceText.text = "Gold : " + currentBalance.ToString();
+        GameManager.Instance.UpdateBalanceText(currentBalance);
     }
 
     // 입금
@@ -32,25 +27,18 @@ public class Bank : MonoBehaviour
     {
         // Mathf.Abs() : 절대값 변환 함수. 음수 값이 들어오는 것 방지.
         currentBalance += Mathf.Abs(amount);
-        UpdateBalanceText();
+        GameManager.Instance.UpdateBalanceText(currentBalance);
     }
 
     // 인출
     public void WithDraw(int amount)
     {
         currentBalance -= amount;
-        UpdateBalanceText();
+        GameManager.Instance.UpdateBalanceText(currentBalance);
 
         if (currentBalance < 0)
         {
-            Debug.Log("Game Over");
-            ReloadScene();
+            GameManager.Instance.GameOver();
         }
-    }
-
-    private void ReloadScene()
-    {
-        Scene currentScene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(currentScene.buildIndex);
     }
 }

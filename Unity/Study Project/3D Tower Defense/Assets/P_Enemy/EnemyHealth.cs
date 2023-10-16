@@ -35,6 +35,7 @@ public class EnemyHealth : MonoBehaviour
         {
             gameObject.SetActive(false);
             maxHP += difficultyInscrese;
+            currentHp = maxHP;
             enemy.RewardMoney();
         }
     }
