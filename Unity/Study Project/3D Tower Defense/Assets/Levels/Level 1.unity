@@ -7283,7 +7283,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 8647864271025578110, guid: 08f844d28c83c664b9b6b0d12faacee4, type: 3}
   poolSize: 20
   spawnTime: 1
-  totalEnemyCount: 50
+  totalEnemyCount: 30
 --- !u!4 &1733070258
 Transform:
   m_ObjectHideFlags: 0
@@ -9384,11 +9384,11 @@ SceneRoots:
   m_Roots:
   - {fileID: 963194228}
   - {fileID: 705507995}
-  - {fileID: 1851604595}
   - {fileID: 1792632928}
-  - {fileID: 1733070258}
+  - {fileID: 1851604595}
   - {fileID: 7978988963384105699}
-  - {fileID: 5969313668528029322}
-  - {fileID: 651676481}
+  - {fileID: 1733070258}
   - {fileID: 99931431}
   - {fileID: 3762846927071914283}
+  - {fileID: 5969313668528029322}
+  - {fileID: 651676481}
